@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+
+<script type="text/javascript">
+
+// start the object
+oggetto = null;
+ 
+// two variables archive the cursor of mouse
+mouse_x = 0;
+mouse_y = 0;
+ 
+// two variables archive the position of element
+ele_x = 0;
+ele_y = 0;
+ 
+// connect two function (Move and stop)
+function inizializzaMov(){
+document.onmousemove = muovi;
+document.onmouseup = ferma;
+}
+ 
+// destroy the object when we are stuck
+function ferma(){
+oggetto = null;
+}
+ 
+// main function, which is responsible for moving the element
+function muovi(e){
+mouse_x = document.all ? window.event.clientX : e.pageX;
+mouse_y = document.all ? window.event.clientY : e.pageY;
+if(oggetto != null)
+{
+oggetto.style.left = (mouse_x - ele_x) + "px";
+oggetto.style.top = (mouse_y - ele_y) + "px";
+}
+}
+ 
+// It is invoked when I start moving the object
+function muoviOggetto(ele){
+// stores the values ​​of the element to be moved
+oggetto = ele;
+ele_x = mouse_x - oggetto.offsetLeft;
+ele_y = mouse_y - oggetto.offsetTop;
+ 
+}
+</script>
+    
+<style type="text/css">
+#box {
+background-color: #02196d;
+font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+font-size: smaller;
+color: white;
+width: 250px;
+height: 150px;
+cursor: move;
+position: relative;
+padding: 10px;
+}
+</style>
+
+</head>
+
+<body onload="inizializzaMov()">
+<!-- Initial position of x and y -->
+<div id="box" style="left:100px;top:100px;z-index: 5;" onmousedown="muoviOggetto(this);" >
+<center>Cliccami e trascinami</center>
+</div>
+</body>
+</html>
